@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,17 +36,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <ConvexClientProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          enableColorScheme
-          storageKey="thoughthub-theme"
-        >
-          <Toaster position="bottom-center" />
-          <ModalProvider />
-          <body>{children}</body>
-        </ThemeProvider>
+        <EdgeStoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            enableColorScheme
+            storageKey="thoughthub-theme"
+          >
+            <Toaster position="bottom-center" />
+            <ModalProvider />
+            <body>{children}</body>
+          </ThemeProvider>
+        </EdgeStoreProvider>
       </ConvexClientProvider>
     </html>
   );
